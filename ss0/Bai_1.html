@@ -35,9 +35,38 @@
             }, 
         ];
 
+        let addedCourses = [ 
+            { 
+                id: 6, 
+                title: "PHP Tutorial", 
+                rating: 3, 
+            }, 
+            { 
+                id: 7, 
+                title: "C# Tutorial", 
+                rating: 2, 
+            }, 
+            { 
+                id: 8, 
+                title: "Docker Tutorial", 
+                rating: 3.8, 
+            } 
+            ]; 
+
         const highRatedPCourses = courses.filter(course => course.rating >= 4);
 
         highRatedPCourses.forEach(course => { console.log(`Title: ${course.title}, Rating: ${course.rating}`); });
+//-------------------------------------------------
+        const lowRatedPosts = courses.filter(course => course.rating < 4);
+
+        lowRatedPosts.forEach(course => { console.log(`Id: ${course.id}, Title: ${course.title}, Rating: ${course.rating}`); });
+//-------------------------------------------------
+        function gopMang(courses, addedCourses) {
+            return [...courses, ...addedCourses];
+        }
+
+        const mangDaGop = gopMang(courses, addedCourses);
+        console.log(mangDaGop);
     </script>
 </body>
 </html>
