@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tạo đối tượng</title>
+</head>
+<body>
+    <script>
+        const person = {
+            firstName: 'John',
+            lastName: 'Doe',
+            age: 30,
+            gender: 'male',
+            occupation: 'developer',
+            nationality: 'Vietnam',
+            city: 'Ho Chi Minh',
+            hobbies: ['reading', 'traveling', 'photography'],
+            languages: ['English', 'Spanish'],
+            education: {
+                degree: 'Bachelor',
+                major: 'Computer Science',
+                university: 'Harvard University'
+            }
+        };
+
+        const {firstName, gender, education: {degree}, languages:[English]} = person;
+
+        const student = {firstName, gender, degree, English};
+        
+        console.log(student);
+        
+    </script>
+</body>
+</html>
