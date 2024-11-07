@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lọc số nguyên</title>
+</head>
+<body>
+    <script>
+        const soNguyenTo = (num) => {
+            if (num <= 1) return false;
+            //<1 ko là NT
+            for (let i = 2; i <= Math.sqrt(num); i++) {
+                if (num % i === 0) return false;
+            }
+            return true;
+        };
+
+        console.log(soNguyenTo(3));
+        console.log(soNguyenTo(10));
+
+        const daySo = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        const primeNumbers = daySo.filter(soNguyenTo);
+
+        console.log(primeNumbers);
+
+    </script>
+</body>
+</html>
