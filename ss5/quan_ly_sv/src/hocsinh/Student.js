@@ -25,3 +25,6 @@ const listStudent = [
       listStudent.push({...newStudent})
       return listStudent;
   }
+  export function searchStudent(studentName){
+    return listStudent.filter(student => student.name.includes(studentName));
+ }

@@ -1,11 +1,15 @@
 import React, {useEffect,useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
-import { addStudentList, getStudent } from './Student';
+import {getStudent, searchStudent} from './Student';
 import AddStudent from './AddStudent';
+import DeleteStudent from './DeleteStudent';
+import SearchStudent from './SearchStudent';
 
 const ListComponent = ()=>{
     const [studentList, setStudentList] = useState([])
+    const [isShowModal, setIsShowModal] = useState(false)
+    const [Student, setDeleteStudent] = useState(null)
     useEffect(()=>{
         setStudentList(()=>(
             [
@@ -14,14 +18,30 @@ const ListComponent = ()=>{
         ))
     },[]); 
     const handleAddStudent =(newStudent)=>{
-        setStudentList(addStudentList(newStudent));
+        setStudentList((prev) => [...prev, newStudent]);
+    }
+    const handleShowModal = (student)=>{
+        setIsShowModal((pre)=> !pre);
+        setDeleteStudent(student);
+    }
+    const handleDeleteStudent = (student)=>{
+        setStudentList(studentList.filter(studentPre => studentPre.id !== student));
+        setIsShowModal(false)
+    }
+    const handleSearchStudent = (studentId)=>{
+        const result = searchStudent(studentId)
+        setStudentList(()=>[...result]);
+    }
+    const handleReset =()=>{
+        setStudentList([...getStudent()]);
     }
     return (
         <>
         <AddStudent onAddStudent={handleAddStudent}/>
-        <table class={'table table-bordered'}>
+        <SearchStudent onReset={handleReset} onSearch={handleSearchStudent}/>
+        <table className={'table table-bordered'}>
                 <thead>
-                    <tr class={'text-center'}>
+                    <tr className={'text-center'}>
                         <th>ID</th>
                         <th>Name</th>
                         <th>Phone</th>
@@ -38,12 +58,15 @@ const ListComponent = ()=>{
                             <td>{e.email}</td>
                             <td>
                                 <button className={'btn btn-sm btn-success'}>Edit</button>
-                                <button onClick={()=>this.handleShowModal(e)} style={{marginLeft: '3px'}} className={'btn btn-sm btn-danger'}>Delete</button>
+                                <button onClick={()=>handleShowModal(e)} style={{marginLeft: '3px'}} className={'btn btn-sm btn-danger'}>Delete</button>
                             </td>
                          </tr>
                     ))}
                 </tbody>
             </table>
+            {
+                isShowModal ? <DeleteStudent onDelete={handleDeleteStudent} student={Student} onShowModal={handleShowModal}/>:""
+            }
         </>
     )
 }
